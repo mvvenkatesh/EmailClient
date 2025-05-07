@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { matchPasswordValidator } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
+import { SharedModule } from '../../shared/shared.module';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe, SharedModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
