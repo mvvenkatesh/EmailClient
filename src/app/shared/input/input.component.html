@@ -7,13 +7,13 @@
         <p *ngIf="control.errors.required">
             Value is required
         </p>
-        <p *ngIf="control.errors.minlength">
-            Value is entered is {{control.errors.minlength.actuallength}} characters long
-            it must be atleast {{control.errors.minlength.requiredlength}} characters
+        <p *ngIf="control.errors?.['minlength']">
+            Value entered is {{ control.errors['minlength'].actualLength }} characters long,
+            it must be at least {{ control.errors['minlength'].requiredLength }} characters.
         </p>
-        <p *ngIf="control.errors.maxlength">
-            Value is entered is {{control.errors.maxxlength.actuallength}} characters long
-            but cannot be longer than {{control.errors.maxlength.requiredlength}} characters
+        <p *ngIf="control.errors?.['maxlength']">
+            Value entered is {{ control.errors['maxlength'].actualLength }} characters long
+            but cannot be longer than {{ control.errors['maxlength'].requiredLength }} characters.
         </p>
         <p *ngIf="control.errors.pattern">
             Invalid Format
@@ -24,7 +24,5 @@
         <p *ngIf="control.errors.noInternetConnection">
             No Internet Connection
         </p>
-
-
     </div>
 </div>

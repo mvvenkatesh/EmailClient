@@ -4,16 +4,17 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { matchPasswordValidator } from '../validators/match-password';
 import { UniqueUsername } from '../validators/unique-username';
 import { SharedModule } from '../../shared/shared.module';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
-  imports: [ReactiveFormsModule, JsonPipe, SharedModule, CommonModule],
+  imports: [ReactiveFormsModule, SharedModule, CommonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
 export class SignupComponent {
   authForm: FormGroup;
-  constructor(private uniqueUsername: UniqueUsername) {
+  constructor(private uniqueUsername: UniqueUsername, private authService: AuthService) {
     this.authForm = new FormGroup(
       {
         username: new FormControl('', [
@@ -34,5 +35,28 @@ export class SignupComponent {
         ])
       }, { validators: matchPasswordValidator() });
   }
-
+  onSubmit() {
+    if (this.authForm.invalid) {
+      return;
+    }
+    this.authService.signUp(this.authForm.value).subscribe({
+      next: () => {
+        console.log('Signup successful!');
+      },
+      error: (error: { status: any }) => {
+        if (!error.status) {
+          this.authForm.setErrors({
+            ...(this.authForm.errors || {}),
+            noConnection: true
+          });
+        }
+        else{
+          this.authForm.setErrors({
+            ...(this.authForm.errors || {}),
+            unknownError: true
+          });
+        }
+      }
+    });
+  }
 }
