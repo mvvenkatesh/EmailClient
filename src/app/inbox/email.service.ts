@@ -28,4 +28,9 @@ export class EmailService {
       withCredentials : true
     });
   }
+  sendEmail(email : Email){
+    return this.http.post(`${this.rootUrl}/emails`,email,{
+      withCredentials : true
+    });
+  }
 }

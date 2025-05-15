@@ -2,7 +2,8 @@
     <label>
         {{label}}
     </label>
-    <input [type]="type" [formControl]="control" />
+    <input *ngIf="controlType==='input'" [type]="type" [formControl]="control" />
+    <textarea *ngIf="controlType==='text'" [formControl]="control"></textarea>
     <div *ngIf="showErrors()" class="ui pointing red basic label">
         <p *ngIf="control.errors.required">
             Value is required
@@ -17,6 +18,9 @@
         </p>
         <p *ngIf="control.errors.pattern">
             Invalid Format
+        </p>
+        <p *ngIf="control.errors.email">
+            Enter Valid Email
         </p>
         <p *ngIf="control.errors.noUniqueUserName">
             Username is already taken

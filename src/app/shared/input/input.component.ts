@@ -13,6 +13,7 @@ export class InputComponent {
   @Input() label = '';
   @Input() control : any;
   @Input() type = '';
+  @Input() controlType = 'input';
 
   showErrors() {
     const {dirty,touched,errors} = this.control;
